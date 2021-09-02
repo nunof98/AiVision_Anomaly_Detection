@@ -1,0 +1,21 @@
+{
+    "model": {
+        "architecture": "myCAE_optuna_ETMA",
+        "loss": "5.06E-02"
+    },
+    "preprocessing": {
+        "color_mode": "grayscale",
+        "rescale": 0.00392156862745098,
+        "shape": [
+            256,
+            256
+        ],
+        "vmin": 0.0,
+        "vmax": 1.0,
+        "dynamic_range": 1.0
+    },
+    "training": {
+        "batch_size": 8,
+        "epochs_trained": 933
+    }
+}
