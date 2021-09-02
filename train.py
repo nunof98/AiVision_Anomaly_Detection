@@ -50,19 +50,14 @@ def img_to_np(path, resize=True, noise=False):
 
 
 # %% Paths and parameters
-dataset = "ETMA_dataset"
-path_train = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\ETMA_dataset\train\**\*.*'
-path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\ETMA_dataset\test\**\*.*'
-
-#dataset = "screw"
-#path_train = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\mvtec_dataset\{}\train\**\*.*'.format(dataset)
-#path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\mvtec_dataset\{}\test\**\*.*'.format(dataset)
+path_train = r'' # path to training dataset
+path_save = r'' # path to save model
 
 # parameters
-architecture = 'myCAE_optuna_ETMA'
-color_mode = 'grayscale'
-rescale = 1.0 / 255
-shape = (256, 256)
+architecture = '' # chose models architecture to use
+color_mode = 'grayscale' # grayscale or rgb
+rescale = 1.0 / 255 # normalize images
+shape = (256, 256) # final shape of input images
 vmin = 0.0
 vmax = 1.0
 dynamic_range = vmax - vmin
@@ -124,8 +119,6 @@ elif color_mode == 'rgb':
     metric_function = [metrics.mssim_metric(dynamic_range)]
     hist_keys = ('loss', 'val_loss', 'mssim', 'val_mssim')
 
-#loss_function = losses.l2_loss
-#adam = tf.keras.optimizers.Adam(learning_rate=0.00032130145895989355)
 # compile model
 autoencoder.compile(optimizer='adam', loss=loss_function,
                     metrics=metric_function)
@@ -142,7 +135,7 @@ history = autoencoder.fit(x_train_noisy, x_train,
                           batch_size=batch_size,
                           verbose=1,
                           validation_data=(x_train_noisy, x_train),
-                          callbacks=[TensorBoard(log_dir='/tmp/AiVision_Defects')])
+                          callbacks=[TensorBoard(log_dir='/tmp/TensorBoard')])
 
 # calculate elapsed time in seconds
 elapsedTime = timeit.default_timer() - startTime
@@ -162,8 +155,6 @@ print("Evaluated SSIM: {}".format(ssim_eval))
 # %% Save model
 # create a directory to save model
 now = datetime.datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
-path_save = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\saved_models\{}'.format(
-    dataset)
 path_save += r'\loss_{}-ssim_{}-{}'.format(loss_eval, ssim_eval, now)
 
 path_save_autoencoder = path_save + r'\autoencoder'
