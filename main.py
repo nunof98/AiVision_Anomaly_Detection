@@ -57,7 +57,7 @@ def img_to_np(path, resize=True, noise=False):
     return images
 
 
-# %%
+# %% Function: create SSIM residual maps
 
 
 def resmaps_ssim(imgs_input, imgs_pred):
@@ -82,20 +82,16 @@ def resmaps_ssim(imgs_input, imgs_pred):
 
 
 # %%Load model
-#dataset = 'screw'
-dataset = 'ETMA_dataset'
-path_load = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\saved_models\{}'.format(dataset)
+path_load = r'' # path to saved models
 path_load = os.path.join(path_load, os.listdir(path_load)[0])
 
 path_load_autoencoder = path_load + r'\autoencoder'
 autoencoder = load_model(path_load_autoencoder, compile=False)
 
 # %%Load dataset
-dataset = 'ETMA_dataset'
-path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\ETMA_dataset\test\**\*.*'
+path_test = r'' # path to testing dataset
 
-#dataset = "screw"
-#path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\mvtec_dataset\{}\test\**\*.*'.format(dataset)
+# parameters
 shape = (256, 256)
 
 # get test data as np array
@@ -215,8 +211,6 @@ for i in range(0, len(x_test)):
     client.publish('AiVision_Defects/ok_parts', count_ok)
     client.publish('AiVision_Defects/defect_parts', count_nok)
     client.publish('AiVision_Defects/parts_minute', count_parts_minute)
-    # TODO
-    # make list of 10 last defects
     
     # reset all counter with shift change (every 8h)
     now = datetime.now()
