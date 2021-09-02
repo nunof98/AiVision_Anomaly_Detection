@@ -130,25 +130,22 @@ def resmaps_ssim(imgs_input, imgs_pred):
 
 
 # %% Load model
-#dataset = 'screw'
-dataset = 'ETMA_dataset'
-path_load = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\saved_models\{}\\'.format(dataset)
+path_load = r'' # path to saved models
 path_load += os.listdir(path_load)[0]
 
 path_load_autoencoder = path_load + r'\autoencoder'
 path_load_encoder = path_load + r'\encoder'
 
-# custom_objects={"F1Score": tfa.metrics.F1Score})
 autoencoder = load_model(path_load_autoencoder, compile=False)
-# custom_objects={"F1Score": tfa.metrics.F1Score})
 encoder = load_model(path_load_encoder, compile=False)
 
 # %% Load dataset
-#path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\mvtec_dataset\{}\test\**\*.*'.format(dataset)
-path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\ETMA_dataset\test\**\*.*'
+path_test = r'' # path to testing dataset
 
 # paramaters
 shape = (256, 256)
+#cmap = 'viridis'
+cmap = 'gray'
 
 # get test data as np array
 x_test = img_to_np(path_test)
@@ -165,18 +162,10 @@ x_test_noisy = x_test_noisy + noise_factor * \
     np.random.normal(loc=0.0, scale=1.0, size=x_test_noisy.shape)
 x_test_noisy = np.clip(x_test_noisy, 0., 1.)
 
-# get test data as np array
-#x_ground_truth = img_to_np(path_ground_truth)
-#x_ground_truth = x_ground_truth.astype('float32') / 255.
-#x_ground_truth = np.reshape(x_ground_truth, (len(x_ground_truth), shape[0], shape[1], 1))
-
 # %% Predictions
-#cmap = 'viridis'
-cmap = 'gray'
 
-#[5, 22, 42, 47, 62, 88, 130, 131, 141, 146, 154, 201]
 # input image
-i = 62
+i = 0
 #i = 110
 img_in = x_test[i]
 plt.imsave(path_load + r'\input_image.png', img_in.squeeze(2), cmap=cmap)
@@ -196,15 +185,15 @@ img_decoded = img_decoded[0]
 plt.imsave(path_load + r'\decoded_image.png', img_decoded.squeeze(2), cmap=cmap)
 
 # loss image
+# MSE
 #d = (img_in - img_decoded).astype(float)
 #img_loss = np.sqrt(np.einsum('...i,...i->...', d, d))
 #plt.imsave(path_load + r'\loss_image.png', img_loss, cmap=cmap)
+# SSIM residual maps
 _, img_loss = resmaps_ssim(img_in.squeeze(2), img_decoded.squeeze(2))
 plt.imsave(path_load + r'\loss_image.png', img_loss, cmap=cmap)
 
 # %% Results
-#cmap = 'viridis'
-cmap = 'gray'
 
 # create figure
 fig_results = plt.figure('Results')
@@ -241,8 +230,6 @@ plt.tight_layout()
 plt.show()
 
 # %% Segmentation anomaly
-#cmap = 'viridis'
-cmap = 'gray'
 
 # apply gaussian filter to loss image
 img_blur = cv.GaussianBlur(img_loss, (5, 5), 0)
@@ -302,12 +289,6 @@ if blob_area < blob_area_thresh:
     print("OK")
 else:
     print("NOK")
-
-# %% IoU evaluation
-#boxA = get_boundingbox(x_test[41 + i])
-#boxB = get_boundingbox(x_ground_truth[i])
-#iou = bb_intersection_over_union(boxA, boxB)
-#print('IoU: {}'.format(iou))
 
 # %% Compare images with SSIM
 compare_images(img_in.squeeze(2), img_in.squeeze(2), "Original", "Original")
