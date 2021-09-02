@@ -123,42 +123,18 @@ def resmaps_ssim(imgs_input, imgs_pred):
     return scores, resmaps
 
 # %% Load model
-#dataset = 'screw'
-dataset = 'ETMA_dataset'
-path_load = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\saved_models\{}'.format(dataset)
+path_load = r'' # path to saved models
 path_load = os.path.join(path_load, os.listdir(path_load)[0])
 
 path_load_autoencoder = path_load + r'\autoencoder'
 path_load_encoder = path_load + r'\encoder'
 
-#custom_objects={"F1Score": tfa.metrics.F1Score}
 autoencoder = keras.models.load_model(path_load_autoencoder, compile=False, )
-# custom_objects={"F1Score": tfa.metrics.F1Score})
 encoder = keras.models.load_model(path_load_encoder, compile=False, )
 
-# %% Load dataset
-#anomaly = 'good'
-#anomaly = 'manipulated_front'
-#anomaly = 'scratch_head'
-#anomaly = 'scratch_neck'
-#anomaly = 'thread_side'
-#anomaly = 'thread_top'
-#path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\mvtec_dataset\{}\test\{}\*.*'.format(dataset, anomaly)
-#path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\mvtec_dataset\{}\test\**\*.*'.format(dataset)
-#path_ground_truth = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\mvtec_dataset\{}\ground_truth\{}\*.*'.format(dataset, anomaly)
 
-anomaly = 'double'
-#anomaly = 'flaps'
-#anomaly = 'hole'
-#anomaly = 'multiple'
-#anomaly = 'side'
-#anomaly = 'unchromed'
-path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\ETMA_dataset\test\{}\*.*'.format(anomaly)
-
-#anomaly = 'good'
-#path_test = r'C:\Disciplinas\Licenciatura\3º ano\Projeto\AiVision Defects\ETMA_dataset\train\{}\*.*'.format(anomaly)
-
-path_save_results = r'C:\Disciplinas\Licenciatura\results'
+path_test = r'' # path to test dataset
+path_save_results = r'' # path to save results
 
 # paramaters
 shape = (256, 256)
