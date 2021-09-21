@@ -11,10 +11,10 @@ This project has been tested on [MVTec AD dataset](https://www.mvtec.com/company
 There is a total of 7 models based on the Convolutional Auto-Encoder (CAE) architecture implemented in this project:
 
 * mvtecCAE is the model implemented in the MVTec Paper
-* baselineCAE taken from [Adnene Boumessouer](https://github.com/AdneneBoumessouer/MVTec-Anomaly-Detection)
-* inceptionCAE taken from [Adnene Boumessouer](https://github.com/AdneneBoumessouer/MVTec-Anomaly-Detection)
-* resnetCAE taken from [Adnene Boumessouer](https://github.com/AdneneBoumessouer/MVTec-Anomaly-Detection)
-* skipCAE taken from [Adnene Boumessouer](https://github.com/AdneneBoumessouer/MVTec-Anomaly-Detection)
+* baselineCAE implemented in: https://github.com/natasasdj/anomalyDetection
+* inceptionCAE implemented in: https://github.com/natasasdj/anomalyDetection
+* resnetCAE implemented in: https://arxiv.org/pdf/1606.08921.pdf
+* skipCAE implemented in: https://arxiv.org/pdf/1606.08921.pdf
 * myCAE is a model I created which is similar to the mvtecCAE
 * myCAE_optuna is the same as myCAE, but with hyperparameters sugested by [Optuna](https://optuna.org/)
 
