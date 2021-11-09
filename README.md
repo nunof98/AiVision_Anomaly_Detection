@@ -1,5 +1,5 @@
 # AiVision_Anomaly_Detection
-This project proposes a solution for anomaly detection in metalic parts using deep learning and autoencoders
+This project proposes a solution for anomaly detection in metalic parts using deep learning and autoencoders.
 
 ## Method
 This method uses SSIM residual maps to calculate the loss between the original image and the autoencoder reconstruction, and then selecting the highest intensity pixels to decide, based on the area of the blobs, if the part is defective or not.
